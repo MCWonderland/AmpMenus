@@ -23,7 +23,6 @@ import ninja.amp.ampmenus.events.ItemClickEvent;
 import ninja.amp.ampmenus.items.MenuItem;
 import ninja.amp.ampmenus.items.StaticMenuItem;
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -45,8 +44,7 @@ public class ItemMenu {
     /**
      * The {@link ninja.amp.ampmenus.items.StaticMenuItem} that appears in empty slots if {@link ninja.amp.ampmenus.menus.ItemMenu#fillEmptySlots()} is called.
      */
-    @SuppressWarnings("deprecation")
-    private static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GRAY.getData()));
+    private static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
 
     /**
      * Creates an {@link ninja.amp.ampmenus.menus.ItemMenu}.
