@@ -25,6 +25,7 @@ import org.bukkit.inventory.InventoryHolder;
  * Allows you to set the {@link ninja.amp.ampmenus.menus.ItemMenu} that created the Inventory as the Inventory's holder.
  */
 public class MenuHolder implements InventoryHolder {
+
     private ItemMenu menu;
     private Inventory inventory;
 
@@ -46,4 +47,5 @@ public class MenuHolder implements InventoryHolder {
     public Inventory getInventory() {
         return inventory;
     }
+
 }
