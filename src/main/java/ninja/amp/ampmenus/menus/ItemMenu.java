@@ -25,7 +25,6 @@ import ninja.amp.ampmenus.items.StaticMenuItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -205,7 +204,7 @@ public class ItemMenu {
      */
     @SuppressWarnings("deprecation")
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getClick() == ClickType.LEFT) {
+        if (event.isLeftClick()) {
             int slot = event.getRawSlot();
             if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
                 Player player = (Player) event.getWhoClicked();
@@ -257,6 +256,7 @@ public class ItemMenu {
      * Possible sizes of an {@link ninja.amp.ampmenus.menus.ItemMenu}.
      */
     public enum Size {
+
         ONE_LINE(9),
         TWO_LINE(18),
         THREE_LINE(27),
@@ -300,5 +300,6 @@ public class ItemMenu {
                 return SIX_LINE;
             }
         }
+
     }
 }
