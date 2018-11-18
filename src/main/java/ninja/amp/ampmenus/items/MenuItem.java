@@ -37,7 +37,7 @@ public class MenuItem {
     public MenuItem(String displayName, ItemStack icon, String... lore) {
         this.displayName = displayName;
         this.icon = icon;
-        this.lore = Arrays.asList(lore);
+        this.lore = lore != null && lore.length > 0 ? Arrays.asList(lore) : null;
     }
 
     /**
