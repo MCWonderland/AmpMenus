@@ -25,6 +25,7 @@ import ninja.amp.ampmenus.items.StaticMenuItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -204,38 +205,39 @@ public class ItemMenu {
      */
     @SuppressWarnings("deprecation")
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.isLeftClick()) {
-            int slot = event.getRawSlot();
-            if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
-                Player player = (Player) event.getWhoClicked();
-                ItemClickEvent itemClickEvent = new ItemClickEvent(player);
-                items[slot].onItemClick(itemClickEvent);
-                if (itemClickEvent.willUpdate()) {
-                    update(player);
-                } else {
-                    player.updateInventory();
-                    if (itemClickEvent.willClose() || itemClickEvent.willGoBack()) {
-                        final String playerName = player.getName();
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                            public void run() {
-                                Player p = Bukkit.getPlayerExact(playerName);
-                                if (p != null) {
-                                    p.closeInventory();
-                                }
+        int slot = event.getRawSlot();
+        if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
+            Player player = (Player) event.getWhoClicked();
+            ItemClickEvent itemClickEvent = new ItemClickEvent(player, event.getClick());
+            items[slot].onItemClick(itemClickEvent);
+            if (event.isLeftClick()) items[slot].onItemLeftClick(itemClickEvent);
+            if (event.isRightClick()) items[slot].onItemRightClick(itemClickEvent);
+            if (event.getClick() == ClickType.MIDDLE) items[slot].onItemMiddleClick(itemClickEvent);
+            if (itemClickEvent.willUpdate()) {
+                update(player);
+            } else {
+                player.updateInventory();
+                if (itemClickEvent.willClose() || itemClickEvent.willGoBack()) {
+                    final String playerName = player.getName();
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                        public void run() {
+                            Player p = Bukkit.getPlayerExact(playerName);
+                            if (p != null) {
+                                p.closeInventory();
                             }
-                        }, 1);
-                    }
-                    if (itemClickEvent.willGoBack() && hasParent()) {
-                        final String playerName = player.getName();
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                            public void run() {
-                                Player p = Bukkit.getPlayerExact(playerName);
-                                if (p != null) {
-                                    parent.open(p);
-                                }
+                        }
+                    }, 1);
+                }
+                if (itemClickEvent.willGoBack() && hasParent()) {
+                    final String playerName = player.getName();
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                        public void run() {
+                            Player p = Bukkit.getPlayerExact(playerName);
+                            if (p != null) {
+                                parent.open(p);
                             }
-                        }, 3);
-                    }
+                        }
+                    }, 3);
                 }
             }
         }

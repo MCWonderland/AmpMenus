@@ -20,6 +20,7 @@ package ninja.amp.ampmenus.items;
 
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -83,6 +84,34 @@ public class MenuItem {
      * @param event The {@link ninja.amp.ampmenus.events.ItemClickEvent}.
      */
     public void onItemClick(ItemClickEvent event) {
+        // Do nothing by default
+    }
+
+    /**
+     * Called when the MenuItem is clicked and {@link ClickType#isLeftClick()} is true. Convenience method.
+     *
+     * @param event The {@link ninja.amp.ampmenus.events.ItemClickEvent}.
+     */
+    public void onItemLeftClick(ItemClickEvent event) {
+        // Do nothing by default
+    }
+
+    /**
+     * Called when the MenuItem is clicked and {@link ClickType#isRightClick()} is true. Convenience method.
+     *
+     * @param event The {@link ninja.amp.ampmenus.events.ItemClickEvent}.
+     */
+    public void onItemRightClick(ItemClickEvent event) {
+        // Do nothing by default
+    }
+
+    /**
+     * Called when the MenuItem is clicked and {@link ClickType#isLeftClick()} is true. Convenience method.
+     * <strong>Keep in mind, not everyone has a middle mouse button.</strong>
+     *
+     * @param event The {@link ninja.amp.ampmenus.events.ItemClickEvent}.
+     */
+    public void onItemMiddleClick(ItemClickEvent event) {
         // Do nothing by default
     }
 

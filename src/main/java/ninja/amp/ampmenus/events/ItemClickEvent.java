@@ -19,18 +19,21 @@
 package ninja.amp.ampmenus.events;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 
 /**
  * An event called when an Item in the {@link ninja.amp.ampmenus.menus.ItemMenu} is clicked.
  */
 public class ItemClickEvent {
-    private Player player;
+    private final Player player;
+    private final ClickType type;
     private boolean goBack = false;
     private boolean close = false;
     private boolean update = false;
 
-    public ItemClickEvent(Player player) {
+    public ItemClickEvent(Player player, ClickType type) {
         this.player = player;
+        this.type = type;
     }
 
     /**
@@ -40,6 +43,15 @@ public class ItemClickEvent {
      */
     public Player getPlayer() {
         return player;
+    }
+
+    /**
+     * Gets the click type.
+     *
+     * @return The type of click.
+     */
+    public ClickType getType() {
+        return type;
     }
 
     /**
