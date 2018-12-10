@@ -27,14 +27,14 @@ For Developers
 If you're using [Maven](http://maven.apache.org/download.html) to manage project dependencies, simply include the following in your `pom.xml`:
 
     <repository>
-      <id>greatman-repo</id>
-      <url>http://repo.greatmancode.com/content/groups/public/</url>
+      <id>scarsz</id>
+      <url>https://nexus.scarsz.me/content/groups/public/</url>
     </repository>
 
     <dependency>
       <groupId>ninja.amp</groupId>
       <artifactId>ampmenus</artifactId>
-      <version>1.4-SNAPSHOT</version>
+      <version>1.6</version>
       <scope>compile</scope>
     </dependency>
 
