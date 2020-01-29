@@ -203,7 +203,6 @@ public class ItemMenu {
     /**
      * Handles InventoryClickEvents for the {@link ninja.amp.ampmenus.menus.ItemMenu}.
      */
-    @SuppressWarnings("deprecation")
     public void onInventoryClick(InventoryClickEvent event) {
         int slot = event.getRawSlot();
         if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
@@ -213,10 +212,13 @@ public class ItemMenu {
             if (event.isLeftClick()) items[slot].onItemLeftClick(itemClickEvent);
             if (event.isRightClick()) items[slot].onItemRightClick(itemClickEvent);
             if (event.getClick() == ClickType.MIDDLE) items[slot].onItemMiddleClick(itemClickEvent);
+
             if (itemClickEvent.willUpdate()) {
                 update(player);
             } else {
+                //noinspection deprecation
                 player.updateInventory();
+
                 if (itemClickEvent.willClose() || itemClickEvent.willGoBack()) {
                     final String playerName = player.getName();
                     Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -228,6 +230,7 @@ public class ItemMenu {
                         }
                     }, 1);
                 }
+
                 if (itemClickEvent.willGoBack() && hasParent()) {
                     final String playerName = player.getName();
                     Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
