@@ -1,6 +1,6 @@
 package ninja.amp.ampmenus.items;
 
-import org.bukkit.Material;
+import ninja.amp.ampmenus.Materials;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,15 +17,15 @@ public abstract class TristateItem extends MenuItem {
     public TristateItem(String displayName, String... lore) {
         this(
                 displayName,
-                new ItemStack(Material.RED_WOOL),
-                new ItemStack(Material.YELLOW_WOOL),
-                new ItemStack(Material.GREEN_WOOL),
+                new ItemStack(Materials.RED_WOOL),
+                new ItemStack(Materials.YELLOW_WOOL),
+                new ItemStack(Materials.GREEN_WOOL),
                 lore
         );
     }
 
     public TristateItem(String displayName, ItemStack stateOneIcon, ItemStack stateTwoIcon, ItemStack stateThreeIcon, String... lore) {
-        super(displayName, new ItemStack(Material.BARRIER), lore);
+        super(displayName, Materials.UNKNOWN_ITEM, lore);
         this.stateOneIcon = stateOneIcon;
         this.stateTwoIcon = stateTwoIcon;
         this.stateThreeIcon = stateThreeIcon;

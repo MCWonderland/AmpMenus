@@ -1,6 +1,6 @@
 package ninja.amp.ampmenus.items;
 
-import org.bukkit.Material;
+import ninja.amp.ampmenus.Materials;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,14 +16,14 @@ public abstract class BooleanItem extends MenuItem {
     public BooleanItem(String displayName, String... lore) {
         this(
                 displayName,
-                new ItemStack(Material.GREEN_WOOL),
-                new ItemStack(Material.RED_WOOL),
+                new ItemStack(Materials.GREEN_WOOL),
+                new ItemStack(Materials.RED_WOOL),
                 lore
         );
     }
 
     public BooleanItem(String displayName, ItemStack trueIcon, ItemStack falseIcon, String... lore) {
-        super(displayName, new ItemStack(Material.BARRIER), lore);
+        super(displayName, Materials.UNKNOWN_ITEM, lore);
         this.trueIcon = trueIcon;
         this.falseIcon = falseIcon;
     }

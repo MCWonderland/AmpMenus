@@ -18,10 +18,9 @@
  */
 package ninja.amp.ampmenus.items;
 
+import ninja.amp.ampmenus.Materials;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * A {@link ninja.amp.ampmenus.items.StaticMenuItem} that opens the {@link ninja.amp.ampmenus.menus.ItemMenu}'s parent menu if it exists.
@@ -29,11 +28,12 @@ import org.bukkit.inventory.ItemStack;
 public class BackItem extends StaticMenuItem {
 
     public BackItem() {
-        super(ChatColor.RED + "Back", new ItemStack(Material.OAK_FENCE_GATE));
+        super(ChatColor.RED + "Back", Materials.BACK_ITEM);
     }
 
     @Override
     public void onItemClick(ItemClickEvent event) {
         event.setWillGoBack(true);
     }
+
 }

@@ -18,17 +18,16 @@
  */
 package ninja.amp.ampmenus.menus;
 
+import ninja.amp.ampmenus.Materials;
 import ninja.amp.ampmenus.MenuListener;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import ninja.amp.ampmenus.items.MenuItem;
 import ninja.amp.ampmenus.items.StaticMenuItem;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -44,7 +43,7 @@ public class ItemMenu {
     /**
      * The {@link ninja.amp.ampmenus.items.StaticMenuItem} that appears in empty slots if {@link ninja.amp.ampmenus.menus.ItemMenu#fillEmptySlots()} is called.
      */
-    private static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+    private static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", Materials.EMPTY_ITEM);
 
     /**
      * Creates an {@link ninja.amp.ampmenus.menus.ItemMenu}.

@@ -18,10 +18,9 @@
  */
 package ninja.amp.ampmenus.items;
 
+import ninja.amp.ampmenus.Materials;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * A {@link ninja.amp.ampmenus.items.StaticMenuItem} that closes the {@link ninja.amp.ampmenus.menus.ItemMenu}.
@@ -29,7 +28,7 @@ import org.bukkit.inventory.ItemStack;
 public class CloseItem extends StaticMenuItem {
 
     public CloseItem() {
-        super(ChatColor.RED + "Close", new ItemStack(Material.MUSIC_DISC_CAT));
+        super(ChatColor.RED + "Close", Materials.CLOSE_ITEM);
     }
 
     @Override
