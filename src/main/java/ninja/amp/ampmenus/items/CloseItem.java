@@ -1,7 +1,7 @@
 /*
  * This file is part of AmpMenus.
  *
- * Copyright (c) 2014 <http://github.com/ampayne2/AmpMenus/>
+ * Copyright (c) 2014-2020 <https://github.com/Scarsz/AmpMenus/>
  *
  * AmpMenus is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -35,4 +35,5 @@ public class CloseItem extends StaticMenuItem {
     public void onItemClick(ItemClickEvent event) {
         event.setWillClose(true);
     }
+
 }

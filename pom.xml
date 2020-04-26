@@ -4,8 +4,8 @@
 
     <groupId>ninja.amp</groupId>
     <artifactId>ampmenus</artifactId>
-    <version>1.8</version>
-    <inceptionYear>2014</inceptionYear>
+    <version>1.9.0</version>
+    <inceptionYear>2014-2020</inceptionYear>
     <name>AmpMenus</name>
     <description>An inventory menu library for Bukkit</description>
 
@@ -20,23 +20,22 @@
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
-            <id>paper</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
+            <id>scarsz</id>
+            <url>https://nexus.scarsz.me/content/groups/public/</url>
         </repository>
     </repositories>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.github.paperspigot</groupId>-->
-<!--            <artifactId>paperspigot-api</artifactId>-->
-<!--            <version>1.7.10-R0.1-SNAPSHOT</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>github.scarsz</groupId>
+            <artifactId>mojang</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 
@@ -51,8 +50,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <compilerArguments>
                         <O>-Xlint:all</O>
                         <O>-Xlint:-path</O>
@@ -97,11 +96,10 @@
                     </includes>
                 </configuration>
             </plugin>
-            <!-- Javadoc .jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.10.4</version>
                 <configuration>
                     <source>8</source>
                 </configuration>
@@ -111,6 +109,35 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

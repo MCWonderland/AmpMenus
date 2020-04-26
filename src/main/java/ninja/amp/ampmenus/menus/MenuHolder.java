@@ -1,7 +1,7 @@
 /*
  * This file is part of AmpMenus.
  *
- * Copyright (c) 2014 <http://github.com/ampayne2/AmpMenus/>
+ * Copyright (c) 2014-2020 <https://github.com/Scarsz/AmpMenus/>
  *
  * AmpMenus is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@ import org.bukkit.inventory.InventoryHolder;
  */
 public class MenuHolder implements InventoryHolder {
 
-    private ItemMenu menu;
-    private Inventory inventory;
+    private final ItemMenu menu;
+    private final Inventory inventory;
 
     public MenuHolder(ItemMenu menu, Inventory inventory) {
         this.menu = menu;

@@ -1,7 +1,7 @@
 /*
  * This file is part of AmpMenus.
  *
- * Copyright (c) 2014 <http://github.com/ampayne2/AmpMenus/>
+ * Copyright (c) 2014-2020 <https://github.com/Scarsz/AmpMenus/>
  *
  * AmpMenus is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,6 +26,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
@@ -33,9 +34,10 @@ import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Passes inventory click events to their menus for handling.
+ * Passes inventory events to their menus for handling.
  */
 public class MenuListener implements Listener {
+
     private Plugin plugin = null;
     private static final MenuListener INSTANCE = new MenuListener();
 
@@ -56,6 +58,13 @@ public class MenuListener implements Listener {
         if (event.getWhoClicked() instanceof Player && event.getInventory().getHolder() instanceof MenuHolder) {
             event.setCancelled(true);
             ((MenuHolder) event.getInventory().getHolder()).getMenu().onInventoryClick(event);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInventoryClose(InventoryCloseEvent event) {
+        if (event.getInventory().getHolder() instanceof MenuHolder) {
+            ((MenuHolder) event.getInventory().getHolder()).getMenu().onInventoryClose(event);
         }
     }
 
@@ -88,14 +97,6 @@ public class MenuListener implements Listener {
         return false;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPluginDisable(PluginDisableEvent event) {
-        if (event.getPlugin().equals(plugin)) {
-            closeOpenMenus();
-            plugin = null;
-        }
-    }
-
     /**
      * Closes all {@link ninja.amp.ampmenus.menus.ItemMenu}s currently open.
      */
@@ -109,4 +110,13 @@ public class MenuListener implements Listener {
             }
         }
     }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPluginDisable(PluginDisableEvent event) {
+        if (event.getPlugin().equals(plugin)) {
+            closeOpenMenus();
+            plugin = null;
+        }
+    }
+
 }

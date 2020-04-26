@@ -18,22 +18,32 @@
  */
 package ninja.amp.ampmenus.items;
 
-import ninja.amp.ampmenus.Materials;
 import ninja.amp.ampmenus.events.ItemClickEvent;
-import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 /**
- * A {@link ninja.amp.ampmenus.items.StaticMenuItem} that opens the {@link ninja.amp.ampmenus.menus.ItemMenu}'s parent menu if it exists.
+ * A {@link MenuItem} that will dynamically change it's {@link #getFinalIcon(Player)} output depending on
+ * {@link #getValue(Player)}.
+ *
+ * Clicking this MenuItem will result in {@link #toggleValue(Player)} being called. This is useful for true/false
+ * settings per-player, such as seeing other players in a lobby plugin.
  */
-public class BackItem extends StaticMenuItem {
+public abstract class ToggleableMenuItem extends BooleanItem {
 
-    public BackItem() {
-        super(ChatColor.RED + "Back", Materials.BACK_ITEM);
+    public ToggleableMenuItem(String displayName, String... lore) {
+        super(displayName, lore);
     }
+    public ToggleableMenuItem(String displayName, ItemStack trueIcon, ItemStack falseIcon, String... lore) {
+        super(displayName, trueIcon, falseIcon, lore);
+    }
+
+    public abstract void toggleValue(Player player);
 
     @Override
     public void onItemClick(ItemClickEvent event) {
-        event.setWillGoBack(true);
+        toggleValue(event.getPlayer());
+        event.setWillUpdate(true);
     }
 
 }

@@ -1,7 +1,7 @@
 /*
  * This file is part of AmpMenus.
  *
- * Copyright (c) 2014 <http://github.com/ampayne2/AmpMenus/>
+ * Copyright (c) 2014-2020 <https://github.com/Scarsz/AmpMenus/>
  *
  * AmpMenus is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -25,15 +25,18 @@ import ninja.amp.ampmenus.items.MenuItem;
 import ninja.amp.ampmenus.items.StaticMenuItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * A Menu controlled by ItemStacks in an Inventory.
  */
-public class ItemMenu {
+public class ItemMenu implements Listener {
+
     private JavaPlugin plugin;
     private String name;
     private Size size;
@@ -43,7 +46,18 @@ public class ItemMenu {
     /**
      * The {@link ninja.amp.ampmenus.items.StaticMenuItem} that appears in empty slots if {@link ninja.amp.ampmenus.menus.ItemMenu#fillEmptySlots()} is called.
      */
-    private static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", Materials.EMPTY_ITEM);
+    public static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", Materials.EMPTY_ITEM);
+
+    /**
+     * Creates an {@link ninja.amp.ampmenus.menus.ItemMenu} with no parent.
+     *
+     * @param name   The name of the inventory.
+     * @param size   The {@link ninja.amp.ampmenus.menus.ItemMenu.Size} of the inventory.
+     * @param plugin The Plugin instance.
+     */
+    public ItemMenu(String name, Size size, JavaPlugin plugin) {
+        this(name, size, plugin, null);
+    }
 
     /**
      * Creates an {@link ninja.amp.ampmenus.menus.ItemMenu}.
@@ -59,17 +73,6 @@ public class ItemMenu {
         this.size = size;
         this.items = new MenuItem[size.getSize()];
         this.parent = parent;
-    }
-
-    /**
-     * Creates an {@link ninja.amp.ampmenus.menus.ItemMenu} with no parent.
-     *
-     * @param name   The name of the inventory.
-     * @param size   The {@link ninja.amp.ampmenus.menus.ItemMenu.Size} of the inventory.
-     * @param plugin The Plugin instance.
-     */
-    public ItemMenu(String name, Size size, JavaPlugin plugin) {
-        this(name, size, plugin, null);
     }
 
     /**
@@ -126,6 +129,19 @@ public class ItemMenu {
      */
     public ItemMenu setItem(int position, MenuItem menuItem) {
         items[position] = menuItem;
+        return this;
+    }
+
+    /**
+     * Sets the {@link ninja.amp.ampmenus.items.MenuItem} of a slot.
+     *
+     * @param row The slot row, 1-6, inclusive, value depending on item menu size.
+     * @param column The slot column, 1-9, inclusive.
+     * @param menuItem The {@link ninja.amp.ampmenus.items.MenuItem}.
+     * @return The {@link ninja.amp.ampmenus.menus.ItemMenu}.
+     */
+    public ItemMenu setItem(int row, int column, MenuItem menuItem) {
+        items[(row - 1) * 9 + (column - 1)] = menuItem;
         return this;
     }
 
@@ -220,29 +236,32 @@ public class ItemMenu {
 
                 if (itemClickEvent.willClose() || itemClickEvent.willGoBack()) {
                     final String playerName = player.getName();
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        public void run() {
-                            Player p = Bukkit.getPlayerExact(playerName);
-                            if (p != null) {
-                                p.closeInventory();
-                            }
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        Player p = Bukkit.getPlayerExact(playerName);
+                        if (p != null) {
+                            p.closeInventory();
                         }
                     }, 1);
                 }
 
                 if (itemClickEvent.willGoBack() && hasParent()) {
                     final String playerName = player.getName();
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        public void run() {
-                            Player p = Bukkit.getPlayerExact(playerName);
-                            if (p != null) {
-                                parent.open(p);
-                            }
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        Player p = Bukkit.getPlayerExact(playerName);
+                        if (p != null) {
+                            parent.open(p);
                         }
                     }, 3);
                 }
             }
         }
+    }
+
+    /**
+     * Handles InventoryCloseEvent for the {@link ninja.amp.ampmenus.menus.ItemMenu}. Does nothing by default.
+     */
+    public void onInventoryClose(InventoryCloseEvent event) {
+        // Do nothing by default
     }
 
     /**
@@ -270,7 +289,7 @@ public class ItemMenu {
 
         private final int size;
 
-        private Size(int size) {
+        Size(int size) {
             this.size = size;
         }
 
@@ -290,15 +309,15 @@ public class ItemMenu {
          * @return The required {@link ninja.amp.ampmenus.menus.ItemMenu.Size}.
          */
         public static Size fit(int slots) {
-            if (slots < 10) {
+            if (slots <= 9) {
                 return ONE_LINE;
-            } else if (slots < 19) {
+            } else if (slots <= 18) {
                 return TWO_LINE;
-            } else if (slots < 28) {
+            } else if (slots <= 27) {
                 return THREE_LINE;
-            } else if (slots < 37) {
+            } else if (slots <= 36) {
                 return FOUR_LINE;
-            } else if (slots < 46) {
+            } else if (slots <= 45) {
                 return FIVE_LINE;
             } else {
                 return SIX_LINE;
@@ -306,4 +325,5 @@ public class ItemMenu {
         }
 
     }
+
 }

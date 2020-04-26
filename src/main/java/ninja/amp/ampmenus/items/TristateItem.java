@@ -1,3 +1,21 @@
+/*
+ * This file is part of AmpMenus.
+ *
+ * Copyright (c) 2014-2020 <https://github.com/Scarsz/AmpMenus/>
+ *
+ * AmpMenus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * AmpMenus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with AmpMenus.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package ninja.amp.ampmenus.items;
 
 import ninja.amp.ampmenus.Materials;
@@ -44,13 +62,13 @@ public abstract class TristateItem extends MenuItem {
     }
 
     public ItemStack getStateOneIcon() {
-        return stateOneIcon;
+        return stateOneIcon.clone();
     }
     public ItemStack getStateTwoIcon() {
-        return stateTwoIcon;
+        return stateTwoIcon.clone();
     }
     public ItemStack getStateThreeIcon() {
-        return stateThreeIcon;
+        return stateThreeIcon.clone();
     }
 
     public enum Tristate {
@@ -79,6 +97,11 @@ public abstract class TristateItem extends MenuItem {
 
         Tristate(int value) {
             this.value = value;
+        }
+
+        public Tristate fromValue(int value) {
+            if (value < 1 || value > 3) throw new IllegalArgumentException("Value must be between 1-3");
+            return value == 1 ? Tristate.ONE : value == 2 ? Tristate.TWO : Tristate.THREE;
         }
 
         public int getValue() {

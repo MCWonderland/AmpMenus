@@ -1,7 +1,7 @@
 /*
  * This file is part of AmpMenus.
  *
- * Copyright (c) 2014 <http://github.com/ampayne2/AmpMenus/>
+ * Copyright (c) 2014-2020 <https://github.com/Scarsz/AmpMenus/>
  *
  * AmpMenus is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -31,6 +31,7 @@ import java.util.List;
  * An Item inside an {@link ninja.amp.ampmenus.menus.ItemMenu}.
  */
 public class MenuItem {
+
     private final String displayName;
     private final ItemStack icon;
     private final List<String> lore;
@@ -39,6 +40,12 @@ public class MenuItem {
         this.displayName = displayName;
         this.icon = icon;
         this.lore = lore != null && lore.length > 0 ? Arrays.asList(lore) : null;
+    }
+
+    public MenuItem(String displayName, ItemStack icon, List<String> lore) {
+        this.displayName = displayName;
+        this.icon = icon;
+        this.lore = lore != null && lore.size() > 0 ? lore : null;
     }
 
     /**
@@ -130,4 +137,5 @@ public class MenuItem {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
+
 }

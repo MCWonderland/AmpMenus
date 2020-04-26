@@ -1,7 +1,7 @@
 /*
  * This file is part of AmpMenus.
  *
- * Copyright (c) 2014 <http://github.com/ampayne2/AmpMenus/>
+ * Copyright (c) 2014-2020 <https://github.com/Scarsz/AmpMenus/>
  *
  * AmpMenus is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -29,6 +29,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * A {@link ninja.amp.ampmenus.items.MenuItem} that opens a sub {@link ninja.amp.ampmenus.menus.ItemMenu}.
  */
 public class SubMenuItem extends MenuItem {
+
     private final JavaPlugin plugin;
     private final ItemMenu menu;
 
@@ -39,17 +40,15 @@ public class SubMenuItem extends MenuItem {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void onItemClick(ItemClickEvent event) {
         event.setWillClose(true);
         final String playerName = event.getPlayer().getName();
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            public void run() {
-                Player p = Bukkit.getPlayerExact(playerName);
-                if (p != null) {
-                    menu.open(p);
-                }
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            Player p = Bukkit.getPlayerExact(playerName);
+            if (p != null) {
+                menu.open(p);
             }
         }, 3);
     }
+
 }
