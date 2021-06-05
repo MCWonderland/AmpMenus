@@ -39,7 +39,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <ul>
  *     <li>This menu is always has a size of six lines.</li>
  *     <li>If a parent ItemMenu is set in the constructor, a {@link BackItem} will be in the middle-bottom slot.</li>
- *     <li></li>
+ *     <li>Previous/next page items will be in the bottom left and right respectively, and will only be visible when necessary</li>
  * </ul>
  */
 public abstract class PaginatedItemMenu extends ItemMenu {
