@@ -330,8 +330,10 @@ public class ItemMenu implements Listener {
                 return FOUR_LINE;
             } else if (slots <= 45) {
                 return FIVE_LINE;
-            } else {
+            } else if (slots <= 54) {
                 return SIX_LINE;
+            } else {
+                throw new IllegalArgumentException("Unable to fit " + slots + " slots into an inventory");
             }
         }
 
