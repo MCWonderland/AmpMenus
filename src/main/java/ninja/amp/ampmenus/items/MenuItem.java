@@ -98,7 +98,7 @@ public class MenuItem {
      * @param player the clicking player
      */
     public void playClickFeedback(Player player) {
-        player.playSound(player.getLocation(), buttonClickSound, 1, 1);
+        player.playSound(player.getLocation(), buttonClickSound, .5f, 1);
     }
 
     /**
