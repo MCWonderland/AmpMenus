@@ -85,6 +85,17 @@ public class ItemMenu implements Listener {
     }
 
     /**
+     * Gets the name of the {@link ninja.amp.ampmenus.menus.ItemMenu} for the given {@link Player}. Override to change
+     * names of inventories for different players.
+     *
+     * @param player the player who's contextually opening this inventory
+     * @return The {@link ninja.amp.ampmenus.menus.ItemMenu}'s name.
+     */
+    public String getName(Player player) {
+        return getName();
+    }
+
+    /**
      * Gets the {@link ninja.amp.ampmenus.menus.ItemMenu.Size} of the {@link ninja.amp.ampmenus.menus.ItemMenu}.
      *
      * @return The {@link ninja.amp.ampmenus.menus.ItemMenu}'s {@link ninja.amp.ampmenus.menus.ItemMenu.Size}.
@@ -178,7 +189,7 @@ public class ItemMenu implements Listener {
         if (!MenuListener.getInstance().isRegistered(plugin)) {
             MenuListener.getInstance().register(plugin);
         }
-        Inventory inventory = Bukkit.createInventory(new MenuHolder(this, Bukkit.createInventory(player, size.getSize())), size.getSize(), name);
+        Inventory inventory = Bukkit.createInventory(new MenuHolder(this, Bukkit.createInventory(player, size.getSize())), size.getSize(), getName(player));
         apply(inventory, player);
         player.openInventory(inventory);
     }
