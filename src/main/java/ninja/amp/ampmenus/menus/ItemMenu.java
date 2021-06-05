@@ -276,6 +276,15 @@ public class ItemMenu implements Listener {
     }
 
     /**
+     * Checks whether the passed player is "allowed" to close the menu. Override to create "captive" style menus.
+     * @param player the player attempting to close the menu
+     */
+    public boolean isAllowedToClose(Player player) {
+        // all menus can be closed by default
+        return true;
+    }
+
+    /**
      * Destroys the {@link ninja.amp.ampmenus.menus.ItemMenu}.
      */
     public void destroy() {
