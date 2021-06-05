@@ -19,6 +19,7 @@
 package ninja.amp.ampmenus.items;
 
 import ninja.amp.ampmenus.events.ItemClickEvent;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -31,6 +32,12 @@ import java.util.List;
  * An Item inside an {@link ninja.amp.ampmenus.menus.ItemMenu}.
  */
 public class MenuItem {
+
+    private static Sound buttonClickSound = Sound.UI_BUTTON_CLICK;
+
+    public static void setButtonClickSound(Sound buttonClickSound) {
+        MenuItem.buttonClickSound = buttonClickSound;
+    }
 
     private final String displayName;
     private final ItemStack icon;
@@ -83,6 +90,15 @@ public class MenuItem {
      */
     public ItemStack getFinalIcon(Player player) {
         return setNameAndLore(getIcon().clone(), getDisplayName(), getLore());
+    }
+
+    /**
+     * Called when the MenuItem is clicked by a player, intended only for playing a sound effect.
+     *
+     * @param player the clicking player
+     */
+    public void playClickFeedback(Player player) {
+        player.playSound(player.getLocation(), buttonClickSound, 1, 1);
     }
 
     /**

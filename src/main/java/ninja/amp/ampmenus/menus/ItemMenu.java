@@ -232,12 +232,15 @@ public class ItemMenu implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         int slot = event.getRawSlot();
         if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
+            MenuItem item = items[slot];
             Player player = (Player) event.getWhoClicked();
+
             ItemClickEvent itemClickEvent = new ItemClickEvent(player, event.getClick());
-            items[slot].onItemClick(itemClickEvent);
-            if (event.isLeftClick()) items[slot].onItemLeftClick(itemClickEvent);
-            if (event.isRightClick()) items[slot].onItemRightClick(itemClickEvent);
-            if (event.getClick() == ClickType.MIDDLE) items[slot].onItemMiddleClick(itemClickEvent);
+            item.playClickFeedback(player);
+            item.onItemClick(itemClickEvent);
+            if (event.isLeftClick()) item.onItemLeftClick(itemClickEvent);
+            if (event.isRightClick()) item.onItemRightClick(itemClickEvent);
+            if (event.getClick() == ClickType.MIDDLE) item.onItemMiddleClick(itemClickEvent);
 
             if (itemClickEvent.willUpdate()) {
                 update(player);

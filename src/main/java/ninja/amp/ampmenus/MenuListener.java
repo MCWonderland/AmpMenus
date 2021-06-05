@@ -58,15 +58,15 @@ public class MenuListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player && event.getInventory().getHolder() instanceof MenuHolder) {
             event.setCancelled(true);
-            ((MenuHolder) event.getInventory().getHolder()).getMenu().onInventoryClick(event);
+            ItemMenu menu = ((MenuHolder) event.getInventory().getHolder()).getMenu();
+            menu.onInventoryClick(event);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClose(InventoryCloseEvent event) {
         if (event.getInventory().getHolder() instanceof MenuHolder) {
-            MenuHolder holder = (MenuHolder) event.getInventory().getHolder();
-            ItemMenu menu = holder.getMenu();
+            ItemMenu menu = ((MenuHolder) event.getInventory().getHolder()).getMenu();
 
             if (event.getPlayer() instanceof Player) {
                 Player player = (Player) event.getPlayer();
