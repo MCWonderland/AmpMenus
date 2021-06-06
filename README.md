@@ -1,7 +1,22 @@
-AmpMenus
-========
+# AmpMenus
 
 An object-oriented approach to handling Inventory Menus/GUIs in Bukkit.
+
+# Features
+
+* Create object-oriented inventory GUI menus
+* Implement complex, context-based functionality of items within menus
+  * Differing actions depending on different click types, including shift
+    * ex: left click to teleport to a warp, right click to delete it
+  * Dynamically hide "unavailable" items
+    * ex: staff-only item that appears when player has a permission & hides otherwise
+  * Show enchantment effect on a "selected" item
+  * Easily create items to "toggle" something (ToggleableMenuItem, TristateMenuItem)
+* Create submenus of a parent item menu
+* Built-in support for pagination when there can be many menu items
+  * Pages of friends, worlds, punishments, etc.
+
+# Use cases
 
 AmpMenus is intended for advanced use cases such as the following examples:
 
@@ -21,115 +36,111 @@ Capture The Flag Shop
 
 Because the items in these menus behave differently depending on the player and certain data or conditions, they would not be possible with a traditional plugin such as http://dev.bukkit.org/bukkit-plugins/chest-commands/ and would be impractical to create with a simpler utility such as https://forums.bukkit.org/threads/icon-menu.108342/
 
-For Developers
---------------
+# Artifact
 
-If you're using [Maven](http://maven.apache.org/download.html) to manage project dependencies, simply include the following in your `pom.xml`:
+### Maven:
+```xml
+<repository>
+    <id>scarsz</id>
+    <url>https://nexus.scarsz.me/content/groups/public/</url>
+</repository>
 
-    <repository>
-      <id>scarsz</id>
-      <url>https://nexus.scarsz.me/content/groups/public/</url>
-    </repository>
+<dependency>
+    <groupId>ninja.amp</groupId>
+    <artifactId>ampmenus</artifactId>
+    <version>1.10.0</version>
+</dependency>
+```
 
-    <dependency>
-      <groupId>ninja.amp</groupId>
-      <artifactId>ampmenus</artifactId>
-      <version>1.6</version>
-      <scope>compile</scope>
-    </dependency>
+### Gradle:
+```groovy
+repositories {
+    maven {
+        url "https://nexus.scarsz.me/content/groups/public/"
+    }
+}
 
-Basic Usage:
+dependencies {
+    compile 'ninja.amp:ampmenus:1.10.0'
+}
+```
 
-    // Important - Register the MenuListener on enable or before players are able to open them
-    MenuListener.getInstance().register(plugin);
-    
-    // Create an ItemMenu instance - you only need one of these. Don't create one every time you need it...
-    ItemMenu menu = new ItemMenu("Shop", Size.TWO_LINE, plugin);
-    
-    // Adding items to your ItemMenu
-    menu.setItem(17, new CloseItem());
-    
-    // Opening the menu for a Player
-    menu.open(player);
+## Basic Usage
 
-Advanced Usage:
+```java
+// Create an ItemMenu instance - you only need one of these. Don't create one every time you need it...
+ItemMenu menu = new ItemMenu("Shop", Size.TWO_LINE, plugin);
 
-    public class ShopMenu extends ItemMenu {
-        public ShopMenu(JavaPlugin plugin) {
-            super("Shop", Size.TWO_LINE, plugin);
+// Adding items to your ItemMenu
+menu.setItem(17, new CloseItem());
 
-            // Adding items to your ItemMenu
-            setItem(17, new CloseItem());
-        }
-    
-        // Useful in case you only want the back item to appear if the menu has a parent
-        @Override
-        public void setParent(ItemMenu parent) {
-            super.setParent(parent);
-            if (parent != null) {
-                setItem(16, new BackItem());
-            }
-        }
+// Opening the menu for a Player
+menu.open(player);
+```
+
+## Advanced Usage
+```java
+public class ShopMenu extends ItemMenu {
+    public ShopMenu(JavaPlugin plugin) {
+        super("Shop", Size.TWO_LINE, plugin);
+
+        // Adding items to your ItemMenu
+        setItem(17, new CloseItem());
     }
 
-    // Setting parent menus so that the BackItem knows where to go
-    ItemMenu subMenu = new ItemMenu("Vote Perks", Size.FIVE_LINE, plugin);
-    subMenu.setParent(mainMenu);
-    OR
-    ItemMenu subMenu = new ItemMenu("Vote Perks", Size.FIVE_LINE, plugin, mainMenu);
+    // Useful in case you only want the back item to appear if the menu has a parent
+    @Override
+    public void setParent(ItemMenu parent) {
+        super.setParent(parent);
+        if (parent != null) {
+            setItem(16, new BackItem());
+        }
+    }
+}
+```
+```java
+// When creating a new ItemMenu, a parent ItemMenu can be set
+ItemMenu subMenu = new ItemMenu("Vote Perks", Size.FIVE_LINE, plugin, mainMenu);
+```
 
 Creating Menu Items:
 
-    /**
-    * A MenuItem that makes the player perform the "kill" command
-    */
-    public class SuicideItem extends MenuItem {
-        private static final String DISPLAY_NAME = ChatColor.BLUE + "Click for OP!";
-        private static final ItemStack ICON = new ItemStack(Material.DIAMOND);
-    
-        public SuicideItem() {
-            super(DISPLAY_NAME, ICON);
-        }
-    
-        // This method controls what happens when the MenuItem is clicked
-        @Override
-        public void onItemClick(ItemClickEvent event) {
-            event.getPlayer().performCommand("kill");
-        }
-    
-        // This method lets you modify the ItemStack before it is displayed, based on the player opening the menu
-        @Override
-        public ItemStack getFinalIcon(Player player) {
-            ItemStack finalIcon = super.getFinalIcon(player);
-            if (player.hasPermission("you.cant.fool.me")) {
-                finalIcon.setType(Material.LEASH);
-                ItemMeta meta = finalIcon.getItemMeta();
-                meta.setDisplayName(ChatColor.DARK_RED + "Suicide");
-                finalIcon.setItemMeta(meta);
-            }
-            return finalIcon;
-        }
+```java
+/**
+* A MenuItem that makes the player perform the "kill" command
+*/
+public class SuicideItem extends MenuItem {
+    private static final String DISPLAY_NAME = ChatColor.BLUE + "Click for OP!";
+    private static final ItemStack ICON = new ItemStack(Material.DIAMOND);
+
+    public SuicideItem() {
+        super(DISPLAY_NAME, ICON);
     }
 
-Compilation
------------
+    // This method controls what happens when the MenuItem is clicked
+    @Override
+    public void onItemClick(ItemClickEvent event) {
+        event.getPlayer().performCommand("kill");
+    }
 
-AmpMenus uses Maven to handle its dependencies.
+    // This method lets you modify the ItemStack before it is displayed, based on the player opening the menu
+    @Override
+    public ItemStack getFinalIcon(Player player) {
+        ItemStack finalIcon = super.getFinalIcon(player);
+        if (player.hasPermission("you.cant.fool.me")) {
+            finalIcon.setType(Material.LEASH);
+            ItemMeta meta = finalIcon.getItemMeta();
+            meta.setDisplayName(ChatColor.DARK_RED + "Suicide");
+            finalIcon.setItemMeta(meta);
+        }
+        return finalIcon;
+    }
+}
+```
 
-* Download and install [Maven 3](http://maven.apache.org/download.html)  
-* Checkout this repo and run: `mvn clean install`
+## Contributing
 
-The License
------------
-
-AmpMenus is licensed under the [GNU Lesser General Public License Version 3](https://github.com/ampayne2/AmpMenus/blob/master/LICENSE.txt)
-
-Contributing
-------------
-
-Guidelines:
 * All new files must include the license header. This can be done automatically with Maven by running mvn clean install.
 * Generally follow the Oracle code conventions and the current style.
 * Use four spaces for indentation, not tabs.
-* No trailing whitespace (spaces/tabs on new lines and end of lines).
 * 200 column limit for readability.
