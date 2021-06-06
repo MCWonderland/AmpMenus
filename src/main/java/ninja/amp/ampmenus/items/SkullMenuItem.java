@@ -28,23 +28,23 @@ import java.util.UUID;
 /**
  * A {@link MenuItem} that displays a player skull.
  */
-public class SkullItem extends MenuItem {
+public class SkullMenuItem extends MenuItem {
 
     private SkullTarget target;
 
-    public SkullItem(String displayName, String... lore) {
+    public SkullMenuItem(String displayName, String... lore) {
         super(displayName, Head.getPlayerSkullItem(), lore);
         this.target = null;
     }
-    public SkullItem(String displayName, String textureId, String... lore) {
+    public SkullMenuItem(String displayName, String textureId, String... lore) {
         super(displayName, Head.getPlayerSkullItem(), lore);
         this.target = new SkullTarget.SkullTexture(textureId);
     }
-    public SkullItem(String displayName, UUID uuid, String... lore) {
+    public SkullMenuItem(String displayName, UUID uuid, String... lore) {
         super(displayName, Head.getPlayerSkullItem(), lore);
         this.target = new SkullTarget.UUIDTexture(uuid);
     }
-    public SkullItem(String displayName, OfflinePlayer player, String... lore) {
+    public SkullMenuItem(String displayName, OfflinePlayer player, String... lore) {
         this(displayName, player.getUniqueId(), lore);
     }
 

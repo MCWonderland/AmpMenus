@@ -26,13 +26,13 @@ import org.bukkit.inventory.ItemStack;
  * A {@link MenuItem} that will dynamically change it's {@link #getFinalIcon(Player)} output depending on
  * {@link #getValue(Player)}.
  */
-public abstract class TristateItem extends MenuItem {
+public abstract class TristateMenuItem extends MenuItem {
 
     private final ItemStack stateOneIcon;
     private final ItemStack stateTwoIcon;
     private final ItemStack stateThreeIcon;
 
-    public TristateItem(String displayName, String... lore) {
+    public TristateMenuItem(String displayName, String... lore) {
         this(
                 displayName,
                 new ItemStack(Materials.RED_WOOL),
@@ -42,7 +42,7 @@ public abstract class TristateItem extends MenuItem {
         );
     }
 
-    public TristateItem(String displayName, ItemStack stateOneIcon, ItemStack stateTwoIcon, ItemStack stateThreeIcon, String... lore) {
+    public TristateMenuItem(String displayName, ItemStack stateOneIcon, ItemStack stateTwoIcon, ItemStack stateThreeIcon, String... lore) {
         super(displayName, Materials.UNKNOWN_ITEM, lore);
         this.stateOneIcon = stateOneIcon;
         this.stateTwoIcon = stateTwoIcon;

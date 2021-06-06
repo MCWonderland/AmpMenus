@@ -29,7 +29,7 @@ import org.bukkit.inventory.ItemStack;
  * Clicking this MenuItem will result in {@link #toggleValue(Player)} being called. This is useful for true/false
  * settings per-player, such as seeing other players in a lobby plugin.
  */
-public abstract class ToggleableMenuItem extends BooleanItem {
+public abstract class ToggleableMenuItem extends BooleanMenuItem {
 
     public ToggleableMenuItem(String displayName, String... lore) {
         super(displayName, lore);

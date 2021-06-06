@@ -18,7 +18,7 @@
  */
 package ninja.amp.ampmenus.menus;
 
-import ninja.amp.ampmenus.items.BackItem;
+import ninja.amp.ampmenus.items.BackMenuItem;
 import ninja.amp.ampmenus.items.MenuItem;
 import ninja.amp.ampmenus.items.pagination.PaginationMenuItem;
 import ninja.amp.ampmenus.items.pagination.PaginationPageItem;
@@ -38,7 +38,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>Some things to note about this menu:</p>
  * <ul>
  *     <li>This menu is always has a size of six lines.</li>
- *     <li>If a parent ItemMenu is set in the constructor, a {@link BackItem} will be in the middle-bottom slot.</li>
+ *     <li>If a parent ItemMenu is set in the constructor, a {@link BackMenuItem} will be in the middle-bottom slot.</li>
  *     <li>Previous/next page items will be in the bottom left and right respectively, and will only be visible when necessary</li>
  * </ul>
  */
@@ -61,7 +61,7 @@ public abstract class PaginatedItemMenu extends ItemMenu {
      *
      * @param name   The name of the inventory.
      * @param plugin The {@link org.bukkit.plugin.java.JavaPlugin} instance.
-     * @param parent The ItemMenu's parent. If present, a {@link BackItem} will be in the middle-bottom slot.
+     * @param parent The ItemMenu's parent. If present, a {@link BackMenuItem} will be in the middle-bottom slot.
      */
     public PaginatedItemMenu(String name, JavaPlugin plugin, ItemMenu parent) {
         super(name, Size.SIX_LINE, plugin, parent);
@@ -71,7 +71,7 @@ public abstract class PaginatedItemMenu extends ItemMenu {
         }
 
         setItem(6, 1, new PaginationPageItem(this, -1));
-        if (parent != null) setItem(6, 5, new BackItem());
+        if (parent != null) setItem(6, 5, new BackMenuItem());
         setItem(6, 9, new PaginationPageItem(this, 1));
         fillEmptySlots();
     }

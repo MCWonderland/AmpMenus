@@ -23,17 +23,17 @@ import ninja.amp.ampmenus.events.ItemClickEvent;
 import org.bukkit.ChatColor;
 
 /**
- * A {@link ninja.amp.ampmenus.items.StaticMenuItem} that opens the {@link ninja.amp.ampmenus.menus.ItemMenu}'s parent menu if it exists.
+ * A {@link ninja.amp.ampmenus.items.StaticMenuItem} that closes the {@link ninja.amp.ampmenus.menus.ItemMenu}.
  */
-public class BackItem extends StaticMenuItem {
+public class CloseMenuItem extends StaticMenuItem {
 
-    public BackItem() {
-        super(ChatColor.RED + "Back", Materials.BACK_ITEM);
+    public CloseMenuItem() {
+        super(ChatColor.RED + "Close", Materials.CLOSE_ITEM);
     }
 
     @Override
     public void onItemClick(ItemClickEvent event) {
-        event.setWillGoBack(true);
+        event.setWillClose(true);
     }
 
 }

@@ -28,16 +28,16 @@ import java.util.List;
  * A {@link MenuItem} that will dynamically change it's {@link #getFinalIcon(Player)} output depending on
  * {@link #getValue(Player)}.
  */
-public abstract class BooleanItem extends MenuItem {
+public abstract class BooleanMenuItem extends MenuItem {
 
     private final ItemStack trueIcon;
     private final ItemStack falseIcon;
 
-    public BooleanItem(String displayName, String... lore) {
+    public BooleanMenuItem(String displayName, String... lore) {
         this(displayName, new ItemStack(Materials.GREEN_WOOL), new ItemStack(Materials.RED_WOOL), lore);
     }
 
-    public BooleanItem(String displayName, ItemStack trueIcon, ItemStack falseIcon, String... lore) {
+    public BooleanMenuItem(String displayName, ItemStack trueIcon, ItemStack falseIcon, String... lore) {
         super(displayName, Materials.UNKNOWN_ITEM, lore);
         this.trueIcon = trueIcon;
         this.falseIcon = falseIcon;
