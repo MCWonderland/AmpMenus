@@ -28,6 +28,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.Plugin;
@@ -77,6 +78,21 @@ public class MenuListener implements Listener {
                 }
             } else {
                 menu.onInventoryClose(event);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerResourcePackStatus(PlayerResourcePackStatusEvent event) {
+        Inventory inventory = event.getPlayer().getOpenInventory().getTopInventory();
+        if (inventory.getHolder() instanceof MenuHolder) {
+            ItemMenu menu = ((MenuHolder) inventory.getHolder()).getMenu();
+
+            Player player = event.getPlayer();
+            if (menu.isAllowedToClose(player)) {
+                menu.onInventoryClose(new InventoryCloseEvent(event.getPlayer().getOpenInventory()));
+            } else {
+                Bukkit.getScheduler().runTask(plugin, () -> menu.open(player));
             }
         }
     }
