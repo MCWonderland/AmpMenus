@@ -18,7 +18,7 @@
  */
 package ninja.amp.ampmenus.items;
 
-import github.scarsz.mojang.Head;
+import me.scarsz.mojang.Head;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
