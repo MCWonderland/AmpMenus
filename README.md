@@ -48,7 +48,7 @@ Because the items in these menus behave differently depending on the player and 
 <dependency>
     <groupId>ninja.amp</groupId>
     <artifactId>ampmenus</artifactId>
-    <version>1.10.0</version>
+    <version>1.11.1</version>
 </dependency>
 ```
 
@@ -61,7 +61,7 @@ repositories {
 }
 
 dependencies {
-    compile 'ninja.amp:ampmenus:1.10.0'
+    compile 'ninja.amp:ampmenus:1.11.1'
 }
 ```
 
