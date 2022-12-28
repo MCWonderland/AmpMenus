@@ -18,6 +18,7 @@
  */
 package ninja.amp.ampmenus.items;
 
+import ninja.amp.ampmenus.Registry;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class MenuItem {
 
-    private static Sound buttonClickSound = Sound.UI_BUTTON_CLICK;
+    private static Sound buttonClickSound = Registry.BUTTON_CLICK_SOUND;
 
     public static void setButtonClickSound(Sound buttonClickSound) {
         MenuItem.buttonClickSound = buttonClickSound;

@@ -18,7 +18,7 @@
  */
 package ninja.amp.ampmenus.items;
 
-import ninja.amp.ampmenus.Materials;
+import ninja.amp.ampmenus.Registry;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import org.bukkit.ChatColor;
 
@@ -28,7 +28,7 @@ import org.bukkit.ChatColor;
 public class BackMenuItem extends StaticMenuItem {
 
     public BackMenuItem() {
-        super(ChatColor.RED + "Back", Materials.BACK_ITEM);
+        super(ChatColor.RED + "Back", Registry.BACK_ITEM);
     }
 
     @Override

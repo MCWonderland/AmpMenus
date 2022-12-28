@@ -18,7 +18,7 @@
  */
 package ninja.amp.ampmenus.menus;
 
-import ninja.amp.ampmenus.Materials;
+import ninja.amp.ampmenus.Registry;
 import ninja.amp.ampmenus.MenuListener;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import ninja.amp.ampmenus.items.MenuItem;
@@ -46,7 +46,7 @@ public class ItemMenu implements Listener {
     /**
      * The {@link ninja.amp.ampmenus.items.StaticMenuItem} that appears in empty slots if {@link ninja.amp.ampmenus.menus.ItemMenu#fillEmptySlots()} is called.
      */
-    public static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", Materials.EMPTY_ITEM);
+    public static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ", Registry.EMPTY_ITEM);
 
     /**
      * Creates an {@link ninja.amp.ampmenus.menus.ItemMenu} with no parent.

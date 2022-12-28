@@ -20,10 +20,11 @@ package ninja.amp.ampmenus;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("deprecation")
-public class Materials {
+public class Registry {
 
     public static final ItemStack BACK_ITEM;
     public static final ItemStack EMPTY_ITEM;
@@ -32,6 +33,7 @@ public class Materials {
     public static final ItemStack YELLOW_WOOL;
     public static final ItemStack GREEN_WOOL;
     public static final ItemStack CLOSE_ITEM;
+    public static final Sound BUTTON_CLICK_SOUND;
 
     static {
         BACK_ITEM = (ItemStack) firstNonNull(
@@ -62,6 +64,11 @@ public class Materials {
                 tryGetItem("MUSIC_DISC_CAT"),
                 tryGetItem("GOLD_RECORD")
         );
+
+        BUTTON_CLICK_SOUND = (Sound) firstNonNull(
+                tryGetSound("UI_BUTTON_CLICK"),
+                tryGetSound("CLICK")
+        );
     }
 
     private static Object firstNonNull(Object... possible) {
@@ -76,6 +83,14 @@ public class Materials {
     private static ItemStack tryGetItem(String material) {
         try {
             return new ItemStack(Material.valueOf(material));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static Sound tryGetSound(String sound) {
+        try {
+            return Sound.valueOf(sound);
         } catch (Exception e) {
             return null;
         }

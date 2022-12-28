@@ -18,7 +18,7 @@
  */
 package ninja.amp.ampmenus.items.pagination;
 
-import ninja.amp.ampmenus.Materials;
+import ninja.amp.ampmenus.Registry;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import ninja.amp.ampmenus.items.MenuItem;
 import ninja.amp.ampmenus.menus.PaginatedItemMenu;
@@ -59,7 +59,7 @@ public class PaginationPageItem extends MenuItem {
             icon.setAmount(target);
             return icon;
         } else {
-            return Materials.EMPTY_ITEM;
+            return Registry.EMPTY_ITEM;
         }
     }
 

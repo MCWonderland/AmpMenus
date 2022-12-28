@@ -18,7 +18,7 @@
  */
 package ninja.amp.ampmenus.items;
 
-import ninja.amp.ampmenus.Materials;
+import ninja.amp.ampmenus.Registry;
 import ninja.amp.ampmenus.events.ItemClickEvent;
 import org.bukkit.ChatColor;
 
@@ -28,7 +28,7 @@ import org.bukkit.ChatColor;
 public class CloseMenuItem extends StaticMenuItem {
 
     public CloseMenuItem() {
-        super(ChatColor.RED + "Close", Materials.CLOSE_ITEM);
+        super(ChatColor.RED + "Close", Registry.CLOSE_ITEM);
     }
 
     @Override
